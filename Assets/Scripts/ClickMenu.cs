@@ -3,6 +3,16 @@ using System.Collections;
 
 public class ClickMenu : MonoBehaviour
 {
+    static void SetBool(string name, bool value)
+    {
+
+        PlayerPrefs.SetInt(name, value ? 1 : 0);
+    }
+
+    static bool GetBool(string name)
+    {
+        return PlayerPrefs.GetInt(name) == 1 ? true : false;
+    }
     public static bool mute;
     GameObject soundButton, startButton, exitButton, settingsButton, backButton, muteImage, nomuteImage;
     AudioListener cameraListener;
@@ -19,7 +29,7 @@ public class ClickMenu : MonoBehaviour
         cameraListener = GameObject.Find("Main Camera").GetComponent<AudioListener>();
         if (Application.loadedLevel == 0)
         {
-            mute = false;
+            mute = GetBool("Sound");
             soundButton.SetActive(false);
             backButton.SetActive(false);
         }
@@ -91,6 +101,7 @@ public class ClickMenu : MonoBehaviour
     public void FlipSound()
     {
         mute = !mute;
+        SetBool("Sound", mute);
         ChangeSoundImage();
         MuteUnmute();
     }

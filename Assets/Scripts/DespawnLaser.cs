@@ -3,7 +3,7 @@ using System.Collections;
 
 public class DespawnLaser : MonoBehaviour
 {
-    public float destructionTime;
+    public float destructionTime, enableTime;
     private float spawnTime;
     private bool scoreAdded = false;
     // Use this for initialization
@@ -15,11 +15,11 @@ public class DespawnLaser : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (Time.time - spawnTime > 0.5f)
+        if (Time.time - spawnTime > enableTime)
         {
             gameObject.GetComponentInChildren<BoxCollider2D>().enabled = true;
             gameObject.GetComponentInChildren<SpriteRenderer>().enabled = true;
-            if (!scoreAdded)
+            if (!scoreAdded && !SpawnLaser.gameOver)
             {
                 ScoreControl.score++;
                 scoreAdded = true;

@@ -3,7 +3,6 @@ using System.Collections;
 
 public class EndGame : MonoBehaviour
 {
-
     // Use this for initialization
     void Start()
     {
@@ -15,8 +14,7 @@ public class EndGame : MonoBehaviour
         {
             SpawnLaser.gameOver = true;
             gameObject.GetComponent<SpriteRenderer>().enabled = false;
-            gameObject.GetComponent<ParticleSystem>().Play();
-            Destroy(gameObject,0.2f);
+            Destroy(gameObject,0.1f);
         }
     }
     // Update is called once per frame

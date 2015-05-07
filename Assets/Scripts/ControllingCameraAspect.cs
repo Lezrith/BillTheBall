@@ -3,6 +3,8 @@ using System.Collections;
 
 public class ControllingCameraAspect : MonoBehaviour
 {
+    public float orthographicSize = 4;
+    
     // Use this for initialization
     void Start()
     {
@@ -21,7 +23,7 @@ public class ControllingCameraAspect : MonoBehaviour
         Camera camera = GetComponent<Camera>();
 
         // if scaled height is less than current height, add letterbox
-        if (scaleheight < 1.0f)
+        /*if (scaleheight < 1.0f)
         {
             Rect rect = camera.rect;
 
@@ -44,6 +46,17 @@ public class ControllingCameraAspect : MonoBehaviour
             rect.y = 0;
 
             camera.rect = rect;
+        }*/
+        Camera.main.projectionMatrix = Matrix4x4.Ortho(
+             -orthographicSize * targetaspect, orthographicSize * targetaspect,
+             -orthographicSize, orthographicSize,
+             camera.nearClipPlane, camera.farClipPlane);
+        GameObject ball=GameObject.Find("Ball");
+        GameObject newRecord = GameObject.Find("NewRecord");
+        if (ball != null)
+        {
+            ball.transform.localScale = new Vector3(ball.transform.localScale.x, ball.transform.localScale.y * scaleheight, ball.transform.localScale.z);
+            newRecord.transform.localScale = new Vector3(newRecord.transform.localScale.x, newRecord.transform.localScale.y * scaleheight, newRecord.transform.localScale.z);
         }
     }
 

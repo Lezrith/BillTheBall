@@ -25,7 +25,7 @@ public class SpawnLaser : MonoBehaviour
             switch (direction)
             {
                 case 1:
-                    spawnY = Random.Range(-2.68f, 4.35f);
+                    spawnY = Random.Range(-3.13f, 4.35f);
                     spawnPlace = new Vector3(0.63f, spawnY, 0);
                     rotation = Quaternion.Euler(0, 0, 0);
                     break;
@@ -35,7 +35,7 @@ public class SpawnLaser : MonoBehaviour
                     rotation = Quaternion.Euler(0, 0, 270);
                     break;
                 case 3:
-                    spawnY = Random.Range(-2.68f, 4.35f);
+                    spawnY = Random.Range(-3.13f, 4.35f);
                     spawnPlace = new Vector3(-0.63f, spawnY, 0);
                     rotation = Quaternion.Euler(0, 0, 180);
                     break;
