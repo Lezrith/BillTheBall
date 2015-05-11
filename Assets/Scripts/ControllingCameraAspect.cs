@@ -14,10 +14,10 @@ public class ControllingCameraAspect : MonoBehaviour
         float targetaspect = 4.5f / 6.0f;
 
         // determine the game window's current aspect ratio
-        float windowaspect = (float)Screen.width / (float)Screen.height;
+        //float windowaspect = (float)Screen.width / (float)Screen.height;
 
         // current viewport height should be scaled by this amount
-        float scaleheight = windowaspect / targetaspect;
+        //float scaleheight = windowaspect / targetaspect;
 
         // obtain camera component so we can modify its viewport
         Camera camera = GetComponent<Camera>();
@@ -51,13 +51,6 @@ public class ControllingCameraAspect : MonoBehaviour
              -orthographicSize * targetaspect, orthographicSize * targetaspect,
              -orthographicSize, orthographicSize,
              camera.nearClipPlane, camera.farClipPlane);
-        GameObject ball=GameObject.Find("Ball");
-        GameObject newRecord = GameObject.Find("NewRecord");
-        if (ball != null)
-        {
-            ball.transform.localScale = new Vector3(ball.transform.localScale.x, ball.transform.localScale.y * scaleheight, ball.transform.localScale.z);
-            newRecord.transform.localScale = new Vector3(newRecord.transform.localScale.x, newRecord.transform.localScale.y * scaleheight, newRecord.transform.localScale.z);
-        }
     }
 
     // Update is called once per frame

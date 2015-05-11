@@ -16,6 +16,7 @@ public class ClickMenu : MonoBehaviour
     public static bool mute;
     GameObject soundButton, startButton, exitButton, settingsButton, backButton, muteImage, nomuteImage;
     AudioListener cameraListener;
+    AudioSource music;
     // Use this for initialization
     void Start()
     {
@@ -27,6 +28,7 @@ public class ClickMenu : MonoBehaviour
         muteImage = GameObject.Find("Canvas/SoundButton/Mute");
         nomuteImage = GameObject.Find("Canvas/SoundButton/Nomute");
         cameraListener = GameObject.Find("Main Camera").GetComponent<AudioListener>();
+        music = GameObject.Find("BackgroundMusic").GetComponent<AudioSource>();
         if (Application.loadedLevel == 0)
         {
             mute = GetBool("Sound");
@@ -38,6 +40,7 @@ public class ClickMenu : MonoBehaviour
 
     private void MuteUnmute()
     {
+        music.enabled = !mute;
         cameraListener.enabled = !mute;
     }
     // Update is called once per frame
