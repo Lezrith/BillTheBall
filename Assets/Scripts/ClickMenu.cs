@@ -3,20 +3,10 @@ using System.Collections;
 
 public class ClickMenu : MonoBehaviour
 {
-    static void SetBool(string name, bool value)
-    {
-
-        PlayerPrefs.SetInt(name, value ? 1 : 0);
-    }
-
-    static bool GetBool(string name)
-    {
-        return PlayerPrefs.GetInt(name) == 1 ? true : false;
-    }
-    public static bool mute;
+    
+    public bool sound;
     GameObject soundButton, startButton, exitButton, settingsButton, backButton, muteImage, nomuteImage;
-    AudioListener cameraListener;
-    AudioSource music;
+    Mute backgroundMusic;
     // Use this for initialization
     void Start()
     {
@@ -27,11 +17,10 @@ public class ClickMenu : MonoBehaviour
         settingsButton = GameObject.Find("Canvas/SettingsButton");
         muteImage = GameObject.Find("Canvas/SoundButton/Mute");
         nomuteImage = GameObject.Find("Canvas/SoundButton/Nomute");
-        cameraListener = GameObject.Find("Main Camera").GetComponent<AudioListener>();
-        music = GameObject.Find("BackgroundMusic").GetComponent<AudioSource>();
+        backgroundMusic = GameObject.Find("BackgroundMusic").GetComponent<Mute>();
         if (Application.loadedLevel == 0)
         {
-            mute = GetBool("Sound");
+            sound = PlayerPrefBool.GetBool("Sound");
             soundButton.SetActive(false);
             backButton.SetActive(false);
         }
@@ -40,8 +29,7 @@ public class ClickMenu : MonoBehaviour
 
     private void MuteUnmute()
     {
-        music.enabled = !mute;
-        cameraListener.enabled = !mute;
+        backgroundMusic.OnLevelWasLoaded(0);
     }
     // Update is called once per frame
     void Update()
@@ -90,7 +78,7 @@ public class ClickMenu : MonoBehaviour
 
     private void ChangeSoundImage()
     {
-        if (mute)
+        if (!sound)
         {
             muteImage.SetActive(true);
             nomuteImage.SetActive(false);
@@ -103,8 +91,8 @@ public class ClickMenu : MonoBehaviour
     }
     public void FlipSound()
     {
-        mute = !mute;
-        SetBool("Sound", mute);
+        sound = !sound;
+        PlayerPrefBool.SetBool("Sound", sound);
         ChangeSoundImage();
         MuteUnmute();
     }

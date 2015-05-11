@@ -1,7 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public class BlackHoleSpawn : MonoBehaviour
+public class SpawnBlackHole : MonoBehaviour
 {
     GameObject blackHole;
     public float spawnTime, delay;
@@ -26,5 +26,6 @@ public class BlackHoleSpawn : MonoBehaviour
         {
             blackHole.SetActive(false);
         }
+        if (!SpawnLaser.gameOver) CancelInvoke();
     }
 }
