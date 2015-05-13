@@ -15,6 +15,7 @@ public class EndGame : MonoBehaviour
             SpawnLaser.gameOver = true;
             gameObject.GetComponent<SpriteRenderer>().enabled = false;
             Destroy(gameObject,0.1f);
+            GameObject.Find("Canvas").GetComponent<UpdateUI>().ShowGameOver();
         }
     }
     // Update is called once per frame

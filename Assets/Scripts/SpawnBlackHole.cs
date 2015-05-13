@@ -4,7 +4,7 @@ using System.Collections;
 public class SpawnBlackHole : MonoBehaviour
 {
     GameObject blackHole;
-    public float spawnTime, delay;
+    public float spawnTime, delay, lastSpawned;
     // Use this for initialization
     void Start()
     {
@@ -15,6 +15,8 @@ public class SpawnBlackHole : MonoBehaviour
 
     void MoveBlackHole()
     {
+        lastSpawned = Time.time;
+        if (!SpawnLaser.gameOver) CancelInvoke();
         if(!blackHole.activeSelf)
         {
             blackHole.SetActive(true);
@@ -26,6 +28,5 @@ public class SpawnBlackHole : MonoBehaviour
         {
             blackHole.SetActive(false);
         }
-        if (!SpawnLaser.gameOver) CancelInvoke();
     }
 }

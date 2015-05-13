@@ -16,7 +16,6 @@ public class SpawnLaser : MonoBehaviour
         InvokeRepeating("Spawn", waitTime, spawnTime);
     }
 
-    // Update is called once per frame
     void Spawn()
     {
         if (!gameOver)

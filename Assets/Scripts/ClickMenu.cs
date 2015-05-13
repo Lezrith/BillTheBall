@@ -3,27 +3,35 @@ using System.Collections;
 
 public class ClickMenu : MonoBehaviour
 {
-    
+
     public bool sound;
-    GameObject soundButton, startButton, exitButton, settingsButton, backButton, muteImage, nomuteImage;
+    GameObject soundButton, mainMenuButtons, settingsBackButton, muteImage, nomuteImage, pauseMenu;
     Mute backgroundMusic;
+    private float savedTimeScale;
+    private bool paused;
     // Use this for initialization
     void Start()
     {
-        backButton = GameObject.Find("Canvas/BackButton");
-        soundButton = GameObject.Find("Canvas/SoundButton");
-        startButton = GameObject.Find("Canvas/StartButton");
-        exitButton = GameObject.Find("Canvas/ExitButton");
-        settingsButton = GameObject.Find("Canvas/SettingsButton");
-        muteImage = GameObject.Find("Canvas/SoundButton/Mute");
-        nomuteImage = GameObject.Find("Canvas/SoundButton/Nomute");
-        backgroundMusic = GameObject.Find("BackgroundMusic").GetComponent<Mute>();
         if (Application.loadedLevel == 0)
         {
+            soundButton = GameObject.Find("Canvas/SoundButton");
+            mainMenuButtons = GameObject.Find("Canvas/MainMenuButtons");
+            muteImage = GameObject.Find("Canvas/SoundButton/Mute");
+            nomuteImage = GameObject.Find("Canvas/SoundButton/Nomute");
+            settingsBackButton = GameObject.Find("Canvas/BackButton");
+            
             sound = PlayerPrefBool.GetBool("Sound");
             soundButton.SetActive(false);
-            backButton.SetActive(false);
+            settingsBackButton.SetActive(false);
         }
+        if (Application.loadedLevel == 1)
+        {
+            pauseMenu = GameObject.Find("Canvas/PauseMenu");
+            pauseMenu.SetActive(false);
+            paused = false;
+        }
+        
+        backgroundMusic = GameObject.Find("BackgroundMusic").GetComponent<Mute>();
         MuteUnmute();
     }
 
@@ -38,16 +46,31 @@ public class ClickMenu : MonoBehaviour
         {
             if (Application.loadedLevel == 1)
             {
-                Application.LoadLevel(0);
+                if(!paused)Pause();
             }
             if (Application.loadedLevel == 0)
             {
-                Application.Quit();
+                if (mainMenuButtons.activeSelf) Application.Quit();
+                else CloseSettings();
             }
         }
     }
+    void ResumeGame()
+    {
+        Time.timeScale = savedTimeScale;
+        pauseMenu.SetActive(false);
+        paused = false;
+    }
+    void Pause()
+    {
+        savedTimeScale = Time.timeScale;
+        Time.timeScale = 0;
+        pauseMenu.SetActive(true);
+        paused = true;
+    }
     public void StartGame()
     {
+        Time.timeScale = 1;
         Application.LoadLevel(1);
     }
     public void CloseGame()
@@ -60,20 +83,16 @@ public class ClickMenu : MonoBehaviour
     }
     public void OpenSettings()
     {
-        startButton.SetActive(false);
-        exitButton.SetActive(false);
+        mainMenuButtons.SetActive(false);
         soundButton.SetActive(true);
         ChangeSoundImage();
-        settingsButton.SetActive(false);
-        backButton.SetActive(true);
+        settingsBackButton.SetActive(true);
     }
     public void CloseSettings()
     {
-        startButton.SetActive(true);
-        exitButton.SetActive(true);
+        mainMenuButtons.SetActive(true);
         soundButton.SetActive(false);
-        settingsButton.SetActive(true);
-        backButton.SetActive(false);
+        settingsBackButton.SetActive(false);
     }
 
     private void ChangeSoundImage()
