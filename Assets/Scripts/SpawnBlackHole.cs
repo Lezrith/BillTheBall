@@ -18,8 +18,8 @@ public class SpawnBlackHole : MonoBehaviour
         if(!blackHole.activeSelf)
         {
             blackHole.SetActive(true);
-            float x = Random.Range(-1.66f, 3.34f);
-            float y = Random.Range(-3.13f, 4.35f);
+            float x = Random.Range(-2.58f, 2.49f);
+            float y = Random.Range(-3.5f, 3.57f);
             blackHole.transform.position = new Vector3(x, y, 0);
         }
         else
