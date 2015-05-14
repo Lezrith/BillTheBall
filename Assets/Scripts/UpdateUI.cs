@@ -17,7 +17,7 @@ public class UpdateUI : MonoBehaviour
     public void ShowGameOver()
     {
         gameOverMenu.SetActive(true);
-        scoreGUI.transform.position = new Vector3(scoreGUI.transform.position.x - 15, Screen.height / 2, 0);
+        scoreGUI.transform.position = new Vector3(scoreGUI.transform.position.x, Screen.height / 2, 0);
         scoreGUI.GetComponent<Text>().fontSize = 25;
         GameObject.Find("Main Camera").GetComponent<ScoreControl>().HighScore();
     }
